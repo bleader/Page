@@ -11,6 +11,8 @@ cherrypy and alike. To sum up the usage, just create a page inheriting from
 this, fill default values for what you want to change, instantiate it, add
 content (body of webpage), and .get() the page to pass it to your framework.
 
+For a more complete example, see the `demo.py` file.
+
 Usage
 -----
 
@@ -93,3 +95,16 @@ And here are the methods that can be used on your class to fill the webpage:
                            normally containing the closing tag.
 - get(): Close `</body>` and `</html>`, and returns the page as it is
 
+Limitations
+-----------
+
+Unfortunatelly, I didn't think of everything when I wrote this, and forgot that
+cherrypy is binding its tree to an instance of an object, and not to a class.
+
+The first intent of this module was to be bound directly to cherrypy's tree, and
+respond to the request, but with the instance, it append the body to the already
+filled page.
+
+So, in order to use this module, you will need your own page handling class, and
+instantiate your inherited page. This makes it less efficient than originally
+planed, I hope to find a better solution later.

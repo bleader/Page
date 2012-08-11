@@ -38,12 +38,6 @@ class Page:
     _css = "/index.css"
     _additionnal_headers = []
 
-    def set_indent(self, count):
-        """ Set indentation to count
-            @param count    The count of spaces to use for indentation
-        """
-        self._indent_count = count
-
     def indent(self):
         """indent text that will be inserted with the insertion methods"""
         i = 0

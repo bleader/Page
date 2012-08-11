@@ -65,8 +65,8 @@ Provided
 
 Here are the values you can set and their default values:
 
-- _doctype = "html"  -- Define the !<DOCTYPE %s> field
-- _lang = "en"  -- language of the page, for <html lang=%s> field
+- _doctype = "html"  -- Define the `!<DOCTYPE %s>` field
+- _lang = "en"  -- language of the page, for `<html lang=%s>` field
 - _title = "title"  -- <title>
 - _content = "text/html"  -- content type of the page
 - _charset = "utf-8"  -- charset used for the webpage
@@ -91,5 +91,5 @@ And here are the methods that can be used on your class to fill the webpage:
                            the following text so it reflect the opened tag in the indentation.
 - cls(line, newline=True): Used to close a html tag, deindenting the text, then adding a line
                            normally containing the closing tag.
-- get(): Close </body> and </html>, and returns the page as it is
+- get(): Close `</body>` and `</html>`, and returns the page as it is
 

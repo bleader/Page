@@ -113,7 +113,8 @@ class Page:
         self.add('<meta name="description" content="%s" />' % (self._description[self._lang]))
 
         # stylesheet
-        self.add('<link rel="stylesheet" type="text/css" href="%s" />' % (self._css))
+        if self._css != None:
+            self.add('<link rel="stylesheet" type="text/css" href="%s" />' % (self._css))
 
         # additionnal headers
         for h in self._additionnal_headers:

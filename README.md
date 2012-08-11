@@ -44,19 +44,19 @@ This will result in this:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        
-        <title>title</title>
-        
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="keywords" content="" />
-        <meta name="description" content="No description" />
-        <link rel="stylesheet" type="text/css" href="/index.css" />
-        
-    </head>
-    
-    <body>
-    </body>
+   <head>
+      
+      <title>title</title>
+      
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <meta name="keywords" content="mypage, demo, raccoons" />
+      <meta name="description" content="this is the english description of my webpage" />
+      <link rel="stylesheet" type="text/css" href="/index.css" />
+      
+   </head>
+   
+   <body>
+   </body>
 </html>
 ```
 

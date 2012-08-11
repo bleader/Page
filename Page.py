@@ -91,9 +91,10 @@ class Page:
         self.cls("</html>")
         return self._page
 
-    def __init__(self, lang="en"):
+    def __init__(self, lang="en", indent=4):
         """ Prepare header for the page """
         self._lang = lang
+        self._indent_count = indent
         self.add("<!DOCTYPE %s>" % (self._doctype))
         self.opn('<html lang="%s">' % (self._lang))
         self.opn("<head>")

@@ -12,7 +12,7 @@ class Page:
 
     import Page
 
-    p = Page()        # creates and fill the header open body tag
+    p = Page()        # instantiate
     p.opn("<div>")    # open tag: insert and indent following insertions
     p.add("content")  # add content
     p.cls("</div>")   # close tag: deindent and insert closing tag
@@ -21,7 +21,7 @@ class Page:
     """
 
     # content of the page
-    _page = ""
+    _line = []
 
     # indent status and count per indent
     _indent = ""
@@ -38,31 +38,33 @@ class Page:
     _css = "/index.css"
     _additionnal_headers = []
 
+    def __init__(self, lang='en', indent=4):
+        self._lang = lang
+        self._indent_count = indent
+
     def indent(self):
         """indent text that will be inserted with the insertion methods"""
-        i = 0
-        while i < self._indent_count:
-            self._indent = self._indent + " "
-            i = i + 1
+        self._line.append(self._indent_count)
 
     def deindent(self):
         """Remove a level of indent to insertion methods"""
-        self._indent = self._indent[:-self._indent_count]
+        self._line.append(-self._indent_count)
 
     def add(self, line, newline=True):
         """Add an indented line with current indentation
            @param line      The line to be added
            @param newline   Defines if newline is to be inserted
         """
-        self._page = self._page + self._indent + line
         if newline:
-            self._page = self._page + "\n"
+            self._line.append(line + "\n")
+        else:
+            self._line.append(line)
 
     def app(self, str):
         """Append a string to the current line, mostly useful after add and
            newline=False use, to finish a given line.
         """
-        self._page = self._page + str
+        self._line[-1] = self._line[-1] + str
 
     def opn(self, line, newline=True):
         """Used to open an html tag, adding a line containing the tag, and
@@ -79,16 +81,8 @@ class Page:
         self.deindent()
         self.add(line, newline)
 
-    def get(self):
-        """Return the current page text"""
-        self.cls("</body>")
-        self.cls("</html>")
-        return self._page
-
-    def __init__(self, lang="en", indent=4):
+    def head(self):
         """ Prepare header for the page """
-        self._lang = lang
-        self._indent_count = indent
         self.add("<!DOCTYPE %s>" % (self._doctype))
         self.opn('<html lang="%s">' % (self._lang))
         self.opn("<head>")
@@ -124,3 +118,35 @@ class Page:
         self.cls("</head>")
         self.add('')
         self.opn("<body>")
+
+    def get(self):
+        """Return the current page text"""
+        page = ""
+        print(self._line)
+        tmp = self._line
+        self._line = []
+        print(self._line)
+        self.head()
+        print(self._line)
+        self._line = self._line + tmp
+        print(self._line)
+        self.cls("</body>")
+        self.cls("</html>")
+
+        indent = ""
+        # now we have to generate text from lines
+        for l in self._line:
+            if isinstance(l, int):
+                if l > 0:
+                    i = 0
+                    while i < l:
+                        indent = indent + " "
+                        i = i + 1
+                else:
+                    indent = indent[:l]
+            else:
+                page = page + indent
+                page = page + l
+        self._line = []
+        print(len(self._line))
+        return page.strip()

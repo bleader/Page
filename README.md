@@ -7,7 +7,7 @@ Introduction
 ------------
 
 The idea behind this module to help the creation of page for frameworks like
-cherrypy and alike. To sum up the usage, just create a page inheriting from
+cherrypy and alike. To sum up the usage, just create a class inheriting from
 this, fill default values for what you want to change, instantiate it, add
 content (body of webpage), and .get() the page to pass it to your framework.
 
@@ -98,13 +98,10 @@ And here are the methods that can be used on your class to fill the webpage:
 Limitations
 -----------
 
-Unfortunatelly, I didn't think of everything when I wrote this, and forgot that
-cherrypy is binding its tree to an instance of an object, and not to a class.
-
-The first intent of this module was to be bound directly to cherrypy's tree, and
-respond to the request, but with the instance, it append the body to the already
-filled page.
-
-So, in order to use this module, you will need your own page handling class, and
-instantiate your inherited page. This makes it less efficient than originally
-planed, I hope to find a better solution later.
+- The added lines, will be stored in a list, and then processed when the `get()`
+  function is called, thus processing all the lines at this time, it is probably
+  far from being really optimal performance-wise.
+- There is no easy way to insert data before the body, thus you cannot build the
+  body in you request handler and overload the get function to add things befor
+  the body in them, this is something I would like to fix, without making the
+  usage of the class more complex, and didn't find a way yet.

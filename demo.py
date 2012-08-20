@@ -12,44 +12,33 @@ class ExamplePage(Page):
     _title = 'ExamplePage Demo (this will show in your brouwser title bar)'
     _css = None
 
-    def get(self):
-        self.footer()
-        return Page.get(self)
-
-    def __init__(self, lang='en'):
-        Page.__init__(self, lang=lang)
-        self.menu()
-
     def footer(self):
-        self.opn("<div>")
+        self.opn("<div><h2>footer</h2>")
         self.add("footer")
         self.cls('</div>')
 
     def menu(self):
-        self.opn('<div>')
+        self.opn('<div><h1>Menu</h1>')
         self.add('<a href="/toto">toto</a>', newline=False)
         self.app(' -- ')
-        self.app('<a href="/tutu">tutu</a>')
+        self.app('<a href="/tutu">tutu</a>\n')
         self.cls('</div>')
 
-class ExampleServer():
-    lang = 'en'
-    def __init__(self, lang='en'):
-        self.lang = lang
-
     def toto(self):
-        pg = ExamplePage(self.lang)
-        pg.opn("<div>")
-        pg.add("toto")
-        pg.cls('</div>')
-        return pg.get()
+        self.menu()
+        self.opn("<div><h2>body</h2>")
+        self.add("toto")
+        self.cls('</div>')
+        self.footer()
+        return self.get()
 
     def tutu(self):
-        pg = ExamplePage(self.lang)
-        pg.opn("<div>")
-        pg.add("tutu")
-        pg.cls('</div>')
-        return pg.get()
+        self.menu()
+        self.opn("<div><h2>body</h2>")
+        self.add("tutu")
+        self.cls('</div>')
+        self.footer()
+        return self.get()
 
     def index(self):
         return self.toto()
@@ -58,7 +47,7 @@ class ExampleServer():
     toto.exposed = True
     tutu.exposed = True
 
-root = ExampleServer("fr")
-root.fr = ExampleServer("fr")
-root.en = ExampleServer("en")
+root = ExamplePage("fr")
+root.fr = ExamplePage("fr")
+root.en = ExamplePage("en")
 cherrypy.quickstart(root, '/', config=None)

@@ -1,3 +1,5 @@
+""" Helper class to help generate webpages """
+
 class Page:
     """ Page class
     This class is meant to be an abstract class to help generate webpage in
@@ -60,11 +62,11 @@ class Page:
         else:
             self._line.append(line)
 
-    def app(self, str):
+    def app(self, line):
         """Append a string to the current line, mostly useful after add and
            newline=False use, to finish a given line.
         """
-        self._line[-1] = self._line[-1] + str
+        self._line[-1] = self._line[-1] + line
 
     def opn(self, line, newline=True):
         """Used to open an html tag, adding a line containing the tag, and
@@ -104,15 +106,17 @@ class Page:
         self.app('" />\n')
 
         # add description
-        self.add('<meta name="description" content="%s" />' % (self._description[self._lang]))
+        self.add('<meta name="description" content="%s" />' %
+                 (self._description[self._lang]))
 
         # stylesheet
         if self._css != None:
-            self.add('<link rel="stylesheet" type="text/css" href="%s" />' % (self._css))
+            self.add('<link rel="stylesheet" type="text/css" href="%s" />' %
+                     (self._css))
 
         # additionnal headers
-        for h in self._additionnal_headers:
-            self.add("%s" % (h))
+        for header in self._additionnal_headers:
+            self.add("%s" % (header)) 
         
         self.add('')
         self.cls("</head>")
@@ -131,17 +135,17 @@ class Page:
 
         indent = ""
         # now we have to generate text from lines
-        for l in self._line:
-            if isinstance(l, int):
-                if l > 0:
+        for line in self._line:
+            if isinstance(line, int):
+                if line > 0:
                     i = 0
-                    while i < l:
+                    while i < line:
                         indent = indent + " "
                         i = i + 1
                 else:
-                    indent = indent[:l]
+                    indent = indent[:line]
             else:
                 page = page + indent
-                page = page + l
+                page = page + line
         self._line = []
         return page.strip()

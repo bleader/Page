@@ -122,14 +122,10 @@ class Page:
     def get(self):
         """Return the current page text"""
         page = ""
-        print(self._line)
         tmp = self._line
         self._line = []
-        print(self._line)
         self.head()
-        print(self._line)
         self._line = self._line + tmp
-        print(self._line)
         self.cls("</body>")
         self.cls("</html>")
 
@@ -148,5 +144,4 @@ class Page:
                 page = page + indent
                 page = page + l
         self._line = []
-        print(len(self._line))
         return page.strip()

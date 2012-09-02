@@ -22,13 +22,6 @@ class Page:
 
     """
 
-    # content of the page
-    _line = []
-
-    # indent status and count per indent
-    _indent = ""
-    _indent_count = 4
-
     # header
     _doctype = "html"
     _lang = "en"
@@ -41,8 +34,15 @@ class Page:
     _additionnal_headers = []
 
     def __init__(self, lang='en', indent=4):
-        self._lang = lang
+        # content of the page
+        self._line = []
+
+        # indent status and count per indent
+        self._indent = ""
         self._indent_count = indent
+
+        # set instance language
+        self._lang = lang
 
     def indent(self):
         """indent text that will be inserted with the insertion methods"""
